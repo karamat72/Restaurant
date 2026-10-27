@@ -7,7 +7,6 @@ interface GalleryPhoto {
   category: 'Interior' | 'Food' | 'Bar' | 'Kitchen';
   url: string;
 }
-
 const GALLERY_PHOTOS: GalleryPhoto[] = [
   {
     id: 'g-1',
@@ -19,7 +18,7 @@ const GALLERY_PHOTOS: GalleryPhoto[] = [
     id: 'g-2',
     title: 'Artisan Truffle Tagliatelle with Shaved Parmesan',
     category: 'Food',
-    url: 'https://images.unsplash.com/photo-1645112411341-6c4fd023714a?auto=format&fit=crop&w=1200&q=80'
+    url: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1200&q=80' // FIXED
   },
   {
     id: 'g-3',
@@ -61,9 +60,10 @@ const GALLERY_PHOTOS: GalleryPhoto[] = [
     id: 'g-9',
     title: 'Molten Belgian Chocolate Lava Souffle',
     category: 'Food',
-    url: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=1200&q=80'
+    url: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1200&q=80' // ye bhi better hai jan
   }
 ];
+
 
 export const GalleryView: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<'All' | 'Interior' | 'Food' | 'Bar' | 'Kitchen'>('All');
@@ -115,11 +115,15 @@ export const GalleryView: React.FC = () => {
               onClick={() => setLightboxPhoto(photo)}
               className="group relative rounded-2xl overflow-hidden border border-[#24292e] bg-stone-900 aspect-[4/3] cursor-pointer shadow-xl hover:border-[#c5a059]/60 transition-all duration-300"
             >
-              <img
-                src={photo.url}
-                alt={photo.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
+             <img
+  src={photo.url}
+  alt={photo.title}
+  loading="lazy"
+  onError={(e) => {
+    e.currentTarget.src = 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80';
+  }}
+  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+/>
 
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
                 <span className="text-[10px] text-[#c5a059] font-bold uppercase tracking-wider">
